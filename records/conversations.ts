@@ -1,6 +1,8 @@
 import { APIGatewayProxyResult } from 'aws-lambda';
 import * as AWS from 'aws-sdk';
 
+import { success, failure } from "../helpers/response";
+
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 export const createConversations = async (): Promise<APIGatewayProxyResult> => {
@@ -73,14 +75,8 @@ export const conversations = async (): Promise<APIGatewayProxyResult> => {
       },
     }))
   
-    return {
-      statusCode: 200,
-      body: JSON.stringify(conversations)
-    }
+    return success(conversations)
   } catch(err) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error:  err.message })
-    }
+    return failure(err)
   }
 }

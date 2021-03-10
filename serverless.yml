@@ -34,11 +34,13 @@ functions:
       - http:
           path: conversations
           method: get
+
   messages:
     handler: records/messages.messages
     events:
       - http:
-          path: messages/:conversationId
+          path: messages/{conversationId}
           method: get
 
-  
+resources:
+  - ${file(resources/api-gateway-errors.yml)}

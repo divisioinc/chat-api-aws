@@ -1,6 +1,8 @@
 import { APIGatewayEvent, APIGatewayProxyResult } from 'aws-lambda';
 import * as AWS from 'aws-sdk';
 
+import { success, failure } from "../helpers/response";
+
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 export const createMessages = async (): Promise<APIGatewayProxyResult> => {
@@ -171,14 +173,8 @@ export const messages = async (event: APIGatewayEvent): Promise<APIGatewayProxyR
       messages: resultMessages.Items
     }
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify(messages)
-    }
+    return success(messages)
   } catch(err) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error:  err.message })
-    }
+    return failure(err)
   }
 }
