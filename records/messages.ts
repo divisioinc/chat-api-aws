@@ -178,3 +178,7 @@ export const messages = async (event: APIGatewayEvent): Promise<APIGatewayProxyR
     return failure(err)
   }
 }
+
+export const newMessages = async (event: APIGatewayEvent): Promise<void> => {
+  // Start here
+}

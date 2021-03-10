@@ -1,6 +1,6 @@
 service: chat-api-aws
 
-# Create an optimized package for our functions 
+# Create an optimized package for our functions
 package:
   individually: true
 
@@ -14,7 +14,7 @@ provider:
   runtime: nodejs10.x
   stage: dev
   region: us-east-1
-  
+
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -41,6 +41,12 @@ functions:
       - http:
           path: messages/{conversationId}
           method: get
+  messages:
+    handler: records/messages.newMessage
+    events:
+      - http:
+          path: messages
+          method: post
 
 resources:
   - ${file(resources/api-gateway-errors.yml)}
